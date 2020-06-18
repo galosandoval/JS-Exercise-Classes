@@ -41,9 +41,9 @@ class Airplane {
 */
 
 class Person {
-  constructor(attributes) {
-    this.name = attributes.name;
-    this.age = attributes.age;
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
     this.stomach = []
   }
   eat(edible){
@@ -114,6 +114,8 @@ class Car {
   }
 }
 
+
+
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -156,7 +158,7 @@ class Instructor extends Lambdasian {
   constructor(object){
     super(object)
     this.specialty = object.specialty;
-    this.favLaguage = object.favLanguage;
+    this.favLanguage = object.favLanguage;
     this.catchPhrase = object.catchPhrase;
   }
   demo(subject){
