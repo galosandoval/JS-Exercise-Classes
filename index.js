@@ -41,8 +41,45 @@ class Airplane {
 */
 
 class Person {
-
+  constructor(attributes) {
+    this.name = attributes.name;
+    this.age = attributes.age;
+    this.stomach = []
+  }
+  eat(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible);
+    }
+  }
+  poop(){
+    return this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`
+  }
 }
+
+const personOne = new Person({
+  name: 'Galo', 
+  age: 28
+});
+
+personOne.eat('Sushi');
+personOne.eat('pizza');
+personOne.eat('apple');
+personOne.eat('banana');
+personOne.eat('soup');
+personOne.eat('porrige');
+personOne.eat('ramen');
+personOne.eat('crepe');
+personOne.eat('sandwich');
+personOne.eat('pasta');
+personOne.eat('sashimi');
+console.log(personOne.stomach);
+personOne.poop();
+console.log(personOne.stomach);
+console.log(personOne.name)
+
 
 /*
   TASK 2
@@ -59,7 +96,22 @@ class Person {
 */
 
 class Car {
-
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    this.tank += gallons;
+  }
+  drive(distance){
+    this.odometer += distance;
+    this.tank += distance / this.milesPerGallon;
+    if(this.tank <= 0){
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }
+  }
 }
 
 /*
@@ -75,8 +127,16 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(object){
+    this.name = object.name;
+    this.age = object.age;
+    this.location = object.location;
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from  ${this.location}`;
+  }
 }
+
 
 /*
   TASK 4
@@ -92,9 +152,31 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(object){
+    super(object)
+    this.specialty = object.specialty;
+    this.favLaguage = object.favLanguage;
+    this.catchPhrase = object.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject){
+    return `${student} receives a perfect score on ${subject}`;
+  }
 }
+
+const jedi = new Instructor({
+  name: 'Obi',
+  age: 50,
+  location: 'Hoth',
+  specialty: 'The Force',
+  favLanguage: 'Python',
+  catchPhrase: 'I have the higher ground'
+});
+
+console.log(jedi.grade(jedi.name, jedi.specialty))
 
 /*
   TASK 5
@@ -111,9 +193,44 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian {
+  constructor(object){
+    super(object);
+    this.previousBackground = object.previousBackground;
+    this.className = object.className;
+    this.favSubjects = object.favSubjects;
+    this.grade = object.grade;
+  }
+  listSubjects(){
+    return this.favSubjects;
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`
+  }
+  graduate(){
+     if(this.grade < 70){
+       return `Sorry ${this.name}, your grade at ${this.grade} is too low. Try again.`
+     } else {
+       return `${this.name}, congrats you are able to graduate. Your grade is ${this.grade}.`
+     }
+  }
 }
+
+const padawan = new Student ({
+  name: 'Ani',
+  age: 9,
+  location: 'Tatooine',
+  previousBackground: 'Playing',
+  className: 'The Force',
+  favSubjects: ['Light Sabers', ' Martial Arts', ' Wookie History'],
+  grade : Math.floor(Math.random() * 100) + 1
+});
+
+console.log(padawan.PRAssignment(padawan.className));
+console.log(padawan.sprintChallenge(padawan.favSubjects));
 
 /*
   TASK 6
@@ -128,9 +245,28 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+  constructor(object){
+    super(object);
+    this.gradClassName = object.gradClassName;
+    this.favInstructor = object.favInstructor;
+  }
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student}'s code on ${subject}`
+  }
 
 }
+
+const master = new ProjectManager ({
+  name: 'Yoda',
+  gradClassName: 'OGs',
+  favInstructor: 'Samuel L Jackson'
+});
+
+console.log(master.debugsCode(padawan.name, padawan.favSubjects));
 
 /*
   STRETCH PROBLEM (no tests!)
@@ -140,6 +276,9 @@ class ProjectManager {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+console.log(padawan.graduate());
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
